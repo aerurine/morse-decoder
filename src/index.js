@@ -35,10 +35,21 @@ const MORSE_TABLE = {
     '---..':  '8',
     '----.':  '9',
     '-----':  '0',
+    ['**********'] : ' ',
 };
 
 function decode(expr) {
-    // write your solution here
+  let decoded = ''
+  let nums = expr.match(/\d{10}/)
+  for ( let i = 0; i < expr.length; i += 10) {
+    let space = expr.slice(i, i + 10)
+    nums.push(space)
+  }
+    decoded = nums.reduce((sum, morse) => {
+    sum = sum + MORSE_TABLE[morse.replace(/00/g, '').replace(/10/g, '.').replace(/11/g, '-')] 
+    return sum
+  }, '')
+ return decoded.substring(1)
 }
 
 module.exports = {
